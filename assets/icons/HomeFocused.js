@@ -24,7 +24,7 @@ const HomeFocused = (props) => (
           <G
             id="\u7F16\u7EC4-10"
             transform="translate(14.400000, 11.700000)"
-            stroke="#FFFFFF"
+            stroke="#000"
             strokeLinecap="round"
             strokeLinejoin="round"
             strokeWidth={6}

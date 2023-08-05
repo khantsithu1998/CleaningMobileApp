@@ -19,6 +19,7 @@ import TasksStackNavigator from '../stack/TasksStackNavigator';
 import HomeFocused from 'assets/icons/HomeFocused';
 import Home from 'assets/icons/Home';
 import ReportStackNavigator from '../stack/ReportStackNavigator';
+import SchduleStackNavigator from '../stack/ScheduleStackNavigator';
 
 const Stacks: string[] = [
 
@@ -33,10 +34,10 @@ const HomeTabNavigator = () => {
         headerShown: false,
         tabBarLabelPosition: 'below-icon',
         tabBarLabelStyle: styles.tabLabel,
-        tabBarActiveTintColor: '#fff',
+        tabBarActiveTintColor: '#000',
         tabBarInactiveTintColor: 'gray',
-        tabBarActiveBackgroundColor: palette.primary,
-        tabBarItemStyle: styles.tab,
+        // tabBarActiveBackgroundColor: palette.primary,
+        tabBarItemStyle: styles.tabItem,
         tabBarHideOnKeyboard: true,
         unmountOnBlur: true,
         tabBarIcon: ({ focused }) => {
@@ -47,6 +48,10 @@ const HomeTabNavigator = () => {
               else iconName = <Home />;
               break;
             case 'TasksStack':
+              if (focused) iconName = <HomeFocused />;
+              else iconName = <Home />;
+              break;
+            case 'ScheduleStack':
               if (focused) iconName = <HomeFocused />;
               else iconName = <Home />;
               break;
@@ -66,12 +71,8 @@ const HomeTabNavigator = () => {
           }
           return {
             backgroundColor: '#F5F5F5',
-            position: 'absolute',
-            // bottom: Platform.OS === 'android' ? hp(1) : iOSBottomSpacingHeight,
-
-            bottom: hp(1),
             elevation: 0.7,
-            height: hp(12),
+            height : hp(12),
             paddingHorizontal: hp(3),
           };
         })(route),
@@ -86,6 +87,12 @@ const HomeTabNavigator = () => {
         name="TasksStack"
         component={TasksStackNavigator}
         options={{ title: "Tasks" }}
+      />
+
+      <Tab.Screen
+        name="ScheduleStack"
+        component={SchduleStackNavigator}
+        options={{ title: "Schedule" }}
       />
 
       <Tab.Screen

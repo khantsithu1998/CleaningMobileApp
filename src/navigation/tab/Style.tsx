@@ -7,10 +7,8 @@ import {
 
 const styles = StyleSheet.create({
   
-  tab: {
+  tabItem: {
     flexDirection: 'column',
-    // alignItems: 'center',
-    // justifyContent: 'center',
     height: hp(10),
   },
   tabLabel: {
