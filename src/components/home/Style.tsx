@@ -9,7 +9,7 @@ import {
 const styles = StyleSheet.create({
   
   container : {
-    marginTop : hp(3),
+    marginTop : hp(2),
     paddingVertical : hp(3),
     paddingHorizontal : wp(10),
     backgroundColor : "#393939",

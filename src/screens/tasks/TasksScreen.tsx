@@ -19,6 +19,9 @@ const TasksScreen = () => {
             <Text style={styles.title}>My Tasks</Text>
             <Calendar onSelectDate={setSelectedDate} selected={selectedDate} />
         </View>
+        <View style={styles.listContainer}>
+
+        </View>
     </SafeAreaView>
 }
 

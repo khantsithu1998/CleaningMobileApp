@@ -6,10 +6,11 @@ import {
     widthPercentageToDP as wp,
     heightPercentageToDP as hp,
 } from 'react-native-responsive-screen';
+import { palette } from 'utils/theme/colors';
 
 const styles = StyleSheet.create({
     wrapper: {
-        backgroundColor: "#232323",
+        backgroundColor: palette.primary,
         height: hp(150)
     },
     cardContainer: { 
@@ -20,6 +21,10 @@ const styles = StyleSheet.create({
      },
     title : {
         fontSize : wp(8)
+    },
+    listContainer : {
+        flex : 1,
+        backgroundColor : palette.primary
     }
 });
 
