@@ -10,21 +10,21 @@ import {
 import Cleaning from "assets/icons/Cleaning";
 import TotalCard from "components/home/TotalCard";
 import HeaderBar from "components/header/HeaderBar";
-import { useTasks } from "hooks/useTasks";
+import { useCompletedTasks } from "hooks/useCompletedTasks";
 import { useEffect, useState } from "react";
 import { TaskData, TaskType } from "types/taskType";
 import { palette } from "utils/theme/colors";
 
 const HomeScreen = () => {
 
-    const { data: response, isInitialLoading, isError, hasNextPage, fetchNextPage } = useTasks();
-    const [tasksData, setTaskData] = useState<TaskData[]>([])
+    const { data: response, isInitialLoading, isError, hasNextPage, fetchNextPage } = useCompletedTasks();
+    const [completedTasksData, setCompletedTaskData] = useState<TaskData[]>([])
     useEffect(() => {
         if (response && response.pages && response.pages.length > 0) {
             const taskList = response.pages.flatMap((page) =>
                 page.data ? page.data : []
             );
-            setTaskData(taskList);
+            setCompletedTaskData(taskList);
         }
     }, [response]);
 
@@ -36,10 +36,10 @@ const HomeScreen = () => {
 
         if (isInitialLoading) return <ActivityIndicator color={palette.primary} size={'large'} />;
 
-        if (tasksData?.length) {
+        if (completedTasksData?.length) {
             return (
                 <FlatList
-                    data={tasksData}
+                    data={completedTasksData}
                     renderItem={({ item }) => <Item title={item.category.name} subtitle={item.location} />}
                     keyExtractor={item => item.id.toString()}
                 />

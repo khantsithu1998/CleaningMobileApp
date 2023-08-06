@@ -6,14 +6,14 @@ import fetchData from 'utils/api/apiClient';
 import apiUrl from 'utils/api/apiUrl';
 
 
-export const useTasks = (
+export const useCompletedTasks = (
 
 ) => {
 
     const fetchTasks = async ({ pageParam = 1 }): Promise<TaskType> => {
 
         const response = await fetchData(
-            { route: apiUrl.tasks, raw: { page: pageParam } }
+            { route: apiUrl.completedTasks, raw: { page: pageParam } }
         );
         return response;
     };
