@@ -11,11 +11,13 @@ export const useCompletedTasks = (
 ) => {
 
     const fetchTasks = async ({ pageParam = 1 }): Promise<TaskType> => {
-        let query = `?page=${pageParam}`
+        let query = `${pageParam}`
 
         if (startDate && endDate) {
             query += `&startDate=${startDate}&endDate=${endDate}`;
         }
+
+        console.log(query)
 
         const response = await getData(
             { route: apiUrl.completedTasks, query: query }

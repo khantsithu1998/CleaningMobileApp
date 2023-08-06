@@ -11,7 +11,7 @@ export const useTasks = (
 ) => {
 
     const fetchTasks = async ({ pageParam = 1 }): Promise<TaskType> => {
-        let query = `?page=${pageParam}`
+        let query = pageParam.toString()
 
         if (startDate && endDate) {
             query += `&startDate=${startDate}&endDate=${endDate}`;

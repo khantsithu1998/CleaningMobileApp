@@ -1,6 +1,7 @@
 import { StyleSheet, Text, View, TouchableOpacity } from 'react-native'
 import moment from 'moment'
 import styles from './Style'
+import { palette } from 'utils/theme/colors'
 
 const Date = ({ date, onSelectDate, selected } : any) => {
   /**
@@ -16,8 +17,11 @@ const Date = ({ date, onSelectDate, selected } : any) => {
   const fullDate = moment(date).format('YYYY-MM-DD')
   return (
     <TouchableOpacity
-      onPress={() => onSelectDate(fullDate)}
-      style={[styles.card, selected === fullDate && { backgroundColor: "#6146c6" }]}
+      onPress={() => {
+        console.log(fullDate)
+        onSelectDate(fullDate)
+      }}
+      style={[styles.card, selected === fullDate && { backgroundColor: palette.primary }]}
     >
       <Text
         style={[

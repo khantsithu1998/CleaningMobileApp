@@ -1,4 +1,4 @@
 export default {
-    tasks : "tasks",
-    completedTasks : "completed-tasks",
+    tasks : "tasks?page=",
+    completedTasks : "completed-tasks?page=",
 }

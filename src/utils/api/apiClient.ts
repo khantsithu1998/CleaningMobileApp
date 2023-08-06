@@ -19,7 +19,6 @@ export const getData = async (
 
   const response = await fetch(`${API_URL}/${route}${query}`);
 
-  console.log(await response.text());
   if (!response.ok) {
     throw new Error("Network response was not ok");
   }
