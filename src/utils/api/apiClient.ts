@@ -6,7 +6,7 @@ interface FetchPostOptions {
   signal?: AbortSignal;
 }
 
-const UAT_API_URL = "https://342c-2a09-bac5-492e-18be-00-277-77.ngrok.io";
+const UAT_API_URL = "https://18ff-2a09-bac5-4929-137d-00-1f1-1ac.ngrok-free.app";
 const PRODUCTION_API_URL = "";
 
 export const isProduction = false;
@@ -15,9 +15,9 @@ const API_URL = isProduction ? PRODUCTION_API_URL : UAT_API_URL;
 export const getData = async (
   { route, query }: { route: string; query: string },
 ) => {
-  console.log("endpoint : ", `${API_URL}/${route}`);
+  console.log("endpoint : ", `${API_URL}/${route}${query}`);
 
-  const response = await fetch(`${API_URL}/${route}${query}`, {});
+  const response = await fetch(`${API_URL}/${route}${query}`);
 
   console.log(await response.text());
   if (!response.ok) {
@@ -36,7 +36,7 @@ export const postData = async ({ route, raw }: { route: string; raw: any }) => {
     body: JSON.stringify(raw),
   });
 
-  console.log(await response.text());
+  
   if (!response.ok) {
     throw new Error("Network response was not ok");
   }

@@ -11,9 +11,10 @@ export interface TaskData {
   description: string;
   photo: string;
   instructions?: Instruction[];
-  is_completed: boolean;
+  isCompleted: boolean;
   completedAt?: any;
-  schedule_time: string;
+  startTime: string;
+  endTime: string;
   category: Category;
   user: User;
 }
@@ -22,7 +23,7 @@ interface User {
   id: number;
   firstName: string;
   lastName: string;
-  age: number;
+  profilePhoto: string;
 }
 
 interface Category {

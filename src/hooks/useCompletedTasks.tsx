@@ -18,7 +18,7 @@ export const useCompletedTasks = (
         }
 
         const response = await getData(
-            { route: apiUrl.tasks, query: query }
+            { route: apiUrl.completedTasks, query: query }
         );
         return response;
     };

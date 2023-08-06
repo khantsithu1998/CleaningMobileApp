@@ -25,7 +25,28 @@ const styles = StyleSheet.create({
     listContainer : {
         flex : 1,
         backgroundColor : palette.primary
-    }
+    },
+    item : {
+        flexDirection : 'row',
+        marginHorizontal : wp(5),
+        marginBottom : hp(2),
+        borderRadius : 10,
+        borderColor : '#fff',
+        elevation : 1,
+        // shadowOffset : {
+        //     width : 1,
+        //     height : 1
+        // }
+    },
+    itemTitleContainer : {
+        paddingVertical : hp(5),
+        paddingHorizontal : wp(5)
+    },
+    itemTitle : {
+        color : 'black',
+        marginBottom : hp(3)
+    },
+    itemSubtitle : {}
 });
 
 export default styles;

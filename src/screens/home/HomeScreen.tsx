@@ -21,6 +21,7 @@ const HomeScreen = () => {
     const { data: response, isInitialLoading, isError, hasNextPage, fetchNextPage } = useCompletedTasks({startDate : null, endDate : null});
     const [completedTasksData, setCompletedTaskData] = useState<TaskData[]>([])
     useEffect(() => {
+        console.log("response : ", response)
         if (response && response.pages && response.pages.length > 0) {
             const taskList = response.pages.flatMap((page) =>
                 page.data ? page.data : []
@@ -29,6 +30,12 @@ const HomeScreen = () => {
         }
     }, [response]);
 
+    
+    const loadMore = () => {
+        if (hasNextPage) {
+            fetchNextPage();
+        }
+    };
 
     const tasksList = () => {
         if (isError) {
@@ -43,16 +50,13 @@ const HomeScreen = () => {
                     data={completedTasksData}
                     renderItem={({ item }) => <Item title={item.category.name} subtitle={item.location} />}
                     keyExtractor={item => item.id.toString()}
+                    onEndReached={loadMore}
                 />
             );
         }
     };
 
-    const loadMore = () => {
-        if (hasNextPage) {
-            fetchNextPage();
-        }
-    };
+    
 
     const Item = ({ title, subtitle }: { title: string, subtitle: string }) => (
         <View style={styles.item}>
