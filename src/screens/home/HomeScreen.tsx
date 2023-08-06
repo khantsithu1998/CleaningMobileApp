@@ -1,4 +1,4 @@
-import { FlatList, StatusBar, Text, View, ScrollView, SafeAreaView } from "react-native"
+import { FlatList, StatusBar, Text, View, ScrollView, SafeAreaView, ActivityIndicator } from "react-native"
 
 import styles from "./Style"
 
@@ -10,42 +10,48 @@ import {
 import Cleaning from "assets/icons/Cleaning";
 import TotalCard from "components/home/TotalCard";
 import HeaderBar from "components/header/HeaderBar";
-import VirtualizedBackgroundContainer from "components/home/VirtualizedBackgroundContainer";
+import { useTasks } from "hooks/useTasks";
+import { useEffect, useState } from "react";
+import { TaskData, TaskType } from "types/taskType";
+import { palette } from "utils/theme/colors";
 
 const HomeScreen = () => {
 
-    const DATA = [
-        {
-            id: 'bd7acbea-c1b1-46c2-aed5-3ad53abb28ba',
-            cleaning_type: 'Floor Cleaning',
-            place: 'Main Lobby',
-            cleaning_process: 'completed'
-        },
-        {
-            id: '3ac68afc-c605-48d3-a4f8-fbd91aa97f63',
-            cleaning_type: 'Glass Cleaning',
-            place: 'Main Lobby',
-            cleaning_process: 'completed'
-        },
-        {
-            id: '58694a0f-3da1-471f-bd96-145571e29d72',
-            cleaning_type: 'Carpet Cleaning',
-            place: 'Main Lobby',
-            cleaning_process: 'completed'
-        },
-        {
-            id: '58694a0f-3da1-471f-bd96-145571e29d75',
-            cleaning_type: 'Carpet Cleaning',
-            place: 'Main Lobby',
-            cleaning_process: 'completed'
-        },
-        {
-            id: '58694a0f-3da1-471f-bd96-145571e29d76',
-            cleaning_type: 'Carpet Cleaning',
-            place: 'Main Lobby',
-            cleaning_process: 'completed'
-        },
-    ];
+    const { data: response, isInitialLoading, isError, hasNextPage, fetchNextPage } = useTasks();
+    const [tasksData, setTaskData] = useState<TaskData[]>([])
+    useEffect(() => {
+        if (response && response.pages && response.pages.length > 0) {
+            const taskList = response.pages.flatMap((page) =>
+                page.data ? page.data : []
+            );
+            setTaskData(taskList);
+        }
+    }, [response]);
+
+
+    const tasksList = () => {
+        if (isError) {
+            return <Text>{'Something went wrong'}</Text>;
+        }
+
+        if (isInitialLoading) return <ActivityIndicator color={palette.primary} size={'large'} />;
+
+        if (tasksData?.length) {
+            return (
+                <FlatList
+                    data={tasksData}
+                    renderItem={({ item }) => <Item title={item.category.name} subtitle={item.location} />}
+                    keyExtractor={item => item.id.toString()}
+                />
+            );
+        }
+    };
+
+    const loadMore = () => {
+        if (hasNextPage) {
+            fetchNextPage();
+        }
+    };
 
     const Item = ({ title, subtitle }: { title: string, subtitle: string }) => (
         <View style={styles.item}>
@@ -78,12 +84,8 @@ const HomeScreen = () => {
                 </Text>
             </View>
             <View style={styles.listContainer}>
-                <FlatList
-                    data={DATA}
-                    renderItem={({ item }) => <Item title={item.cleaning_type} subtitle={item.place} />}
-                    keyExtractor={item => item.id}
-                />
-                {/* {DATA.map((item) => <Item title={item.cleaning_type} subtitle={item.place} /> )} */}
+
+                {tasksList()}
             </View>
         </View>
     </SafeAreaView>
