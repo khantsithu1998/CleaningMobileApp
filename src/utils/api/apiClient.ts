@@ -12,12 +12,14 @@ const PRODUCTION_API_URL = "";
 export const isProduction = false;
 const API_URL = isProduction ? PRODUCTION_API_URL : UAT_API_URL;
 
-const fetchData = async ({ route, raw }: { route: string; raw: any }) => {
+export const getData = async (
+  { route, query }: { route: string; query: string },
+) => {
   console.log("endpoint : ", `${API_URL}/${route}`);
 
-  const response = await fetch(`${API_URL}/${route}`, {
-    body: JSON.stringify(raw),
-  });
+  const response = await fetch(`${API_URL}/${route}${query}`, {});
+
+  console.log(await response.text());
   if (!response.ok) {
     throw new Error("Network response was not ok");
   }
@@ -26,4 +28,19 @@ const fetchData = async ({ route, raw }: { route: string; raw: any }) => {
   return data;
 };
 
-export default fetchData;
+export const postData = async ({ route, raw }: { route: string; raw: any }) => {
+  console.log("endpoint : ", `${API_URL}/${route}`);
+
+  const response = await fetch(`${API_URL}/${route}`, {
+    method: "POST",
+    body: JSON.stringify(raw),
+  });
+
+  console.log(await response.text());
+  if (!response.ok) {
+    throw new Error("Network response was not ok");
+  }
+
+  const data = await response.json();
+  return data;
+};

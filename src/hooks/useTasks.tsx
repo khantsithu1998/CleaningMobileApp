@@ -2,18 +2,22 @@ import { useInfiniteQuery, useQuery } from '@tanstack/react-query';
 
 import { useAtomValue } from 'jotai';
 import { TaskType } from 'types/taskType';
-import fetchData from 'utils/api/apiClient';
+import { getData } from 'utils/api/apiClient';
 import apiUrl from 'utils/api/apiUrl';
 
 
 export const useTasks = (
-
+    { startDate, endDate }: { startDate: string | null, endDate: string | null }
 ) => {
 
     const fetchTasks = async ({ pageParam = 1 }): Promise<TaskType> => {
+        let query = `?page=${pageParam}`
 
-        const response = await fetchData(
-            { route: apiUrl.tasks, raw: { page: pageParam } }
+        if (startDate && endDate) {
+            query += `&startDate=${startDate}&endDate=${endDate}`;
+        }
+        const response = await getData(
+            { route: apiUrl.tasks, query : query }
         );
         return response;
     };

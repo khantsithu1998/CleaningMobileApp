@@ -14,10 +14,11 @@ import { useCompletedTasks } from "hooks/useCompletedTasks";
 import { useEffect, useState } from "react";
 import { TaskData, TaskType } from "types/taskType";
 import { palette } from "utils/theme/colors";
+import { NetInfoCellularGeneration } from "@react-native-community/netinfo";
 
 const HomeScreen = () => {
 
-    const { data: response, isInitialLoading, isError, hasNextPage, fetchNextPage } = useCompletedTasks();
+    const { data: response, isInitialLoading, isError, hasNextPage, fetchNextPage } = useCompletedTasks({startDate : null, endDate : null});
     const [completedTasksData, setCompletedTaskData] = useState<TaskData[]>([])
     useEffect(() => {
         if (response && response.pages && response.pages.length > 0) {
