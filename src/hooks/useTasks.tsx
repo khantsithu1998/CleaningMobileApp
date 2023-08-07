@@ -27,7 +27,13 @@ export const useTasks = (
         queryFn: fetchTasks,
         staleTime: 0,
         enabled: true,
-        getNextPageParam: (lastPage, pages) => lastPage.currentPage + 1,
+        getNextPageParam: (lastPage, pages) => {
+            if (lastPage.totalPages == lastPage.currentPage) {
+                return null
+            }
+
+            return lastPage.currentPage + 1
+        },
     });
 };
 

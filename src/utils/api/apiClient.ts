@@ -6,7 +6,7 @@ interface FetchPostOptions {
   signal?: AbortSignal;
 }
 
-const UAT_API_URL = "https://18ff-2a09-bac5-4929-137d-00-1f1-1ac.ngrok-free.app";
+const UAT_API_URL = "https://cf40-2a09-bac5-492c-137d-00-1f1-1a6.ngrok-free.app";
 const PRODUCTION_API_URL = "";
 
 export const isProduction = false;

@@ -11,52 +11,46 @@ import Cleaning from "assets/icons/Cleaning";
 import TotalCard from "components/home/TotalCard";
 import HeaderBar from "components/header/HeaderBar";
 import { useCompletedTasks } from "hooks/useCompletedTasks";
-import { useEffect, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 import { TaskData, TaskType } from "types/taskType";
 import { palette } from "utils/theme/colors";
 import { NetInfoCellularGeneration } from "@react-native-community/netinfo";
 
 const HomeScreen = () => {
 
-    const { data: response, isInitialLoading, isError, hasNextPage, fetchNextPage } = useCompletedTasks({startDate : null, endDate : null});
-    const [completedTasksData, setCompletedTaskData] = useState<TaskData[]>([])
-    useEffect(() => {
-        console.log("response : ", response)
-        if (response && response.pages && response.pages.length > 0) {
-            const taskList = response.pages.flatMap((page) =>
-                page.data ? page.data : []
-            );
-            setCompletedTaskData(taskList);
-        }
-    }, [response]);
+    const { data: response, isInitialLoading, isError, hasNextPage, fetchNextPage } = useCompletedTasks({ startDate: null, endDate: null });
 
-    
+    const taskListData = response && response.pages && response.pages.length > 0 ? response.pages.flatMap((page) => page.data ? page.data : []) : [];
+
     const loadMore = () => {
         if (hasNextPage) {
             fetchNextPage();
         }
     };
 
-    const tasksList = () => {
+    useEffect(() => {
+        console.log(taskListData)
+    }, [taskListData])
+
+    const tasksList = useMemo(() => {
         if (isError) {
             return <Text>{'Something went wrong'}</Text>;
         }
 
         if (isInitialLoading) return <ActivityIndicator color={palette.primary} size={'large'} />;
 
-        if (completedTasksData?.length) {
+        if (taskListData?.length) {
             return (
                 <FlatList
-                    data={completedTasksData}
+                    data={taskListData}
                     renderItem={({ item }) => <Item title={item.category.name} subtitle={item.location} />}
                     keyExtractor={item => item.id.toString()}
                     onEndReached={loadMore}
                 />
             );
         }
-    };
+    }, [[isError, taskListData, isInitialLoading]]);
 
-    
 
     const Item = ({ title, subtitle }: { title: string, subtitle: string }) => (
         <View style={styles.item}>
@@ -90,7 +84,7 @@ const HomeScreen = () => {
             </View>
             <View style={styles.listContainer}>
 
-                {tasksList()}
+                {tasksList}
             </View>
         </View>
     </SafeAreaView>

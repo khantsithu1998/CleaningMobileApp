@@ -1,4 +1,4 @@
-import { ActivityIndicator, FlatList, SafeAreaView, StatusBar, Text, View } from "react-native"
+import { ActivityIndicator, FlatList, SafeAreaView, ScrollView, StatusBar, Text, View } from "react-native"
 import {
     widthPercentageToDP as wp,
     heightPercentageToDP as hp,
@@ -17,13 +17,13 @@ const TasksScreen = () => {
     const [selectedDate, setSelectedDate] = useState(null);
 
     const { data: response, isInitialLoading, isError, hasNextPage, fetchNextPage } = useTasks({startDate : selectedDate, endDate : selectedDate});
-    const [completedTasksData, setCompletedTaskData] = useState<TaskData[]>([])
+    const [tasksData, setTaskData] = useState<TaskData[]>([])
     useEffect(() => {
         if (response && response.pages && response.pages.length > 0) {
             const taskList = response.pages.flatMap((page) =>
                 page.data ? page.data : []
             );
-            setCompletedTaskData(taskList);
+            setTaskData(taskList);
         }
     }, [response]);
 
@@ -41,17 +41,19 @@ const TasksScreen = () => {
 
         if (isInitialLoading) return <ActivityIndicator color={palette.primary} size={'large'} />;
 
-        if (completedTasksData?.length) {
+        if (tasksData?.length) {
             return (
                 <FlatList
-                    data={completedTasksData}
+                    data={tasksData}
                     renderItem={({ item }) => <Item title={item.category.name} subtitle={item.location} />}
                     keyExtractor={item => item.id.toString()}
                     onEndReached={loadMore}
+                    contentContainerStyle={{ paddingBottom: hp(2) }}
+                    style={{ flex : 1}}
                 />
             );
         }
-    },[isError,completedTasksData,isInitialLoading]);
+    },[isError,tasksData,isInitialLoading]);
 
     const Item = ({ title, subtitle }: { title: string, subtitle: string }) => (
         <View style={styles.item}>
@@ -64,7 +66,7 @@ const TasksScreen = () => {
         </View>
     );
 
-    return <SafeAreaView style={styles.wrapper}>
+    return <ScrollView style={styles.wrapper}>
         <StatusBar backgroundColor={"#232323"} />
         <HeaderBar name={"Khant Si Thu"} />
         <View style={styles.cardContainer}>
@@ -74,7 +76,7 @@ const TasksScreen = () => {
         <View style={styles.listContainer}>
             {tasksList}
         </View>
-    </SafeAreaView>
+    </ScrollView>
 }
 
 export default TasksScreen

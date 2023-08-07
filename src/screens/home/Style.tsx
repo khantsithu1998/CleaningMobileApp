@@ -30,7 +30,8 @@ const styles = StyleSheet.create({
         paddingVertical : hp(2)
     },
     listContainer : {
-
+        flex : 1,
+        paddingVertical : hp(3)
     },
     item : {
         flexDirection : 'row',
