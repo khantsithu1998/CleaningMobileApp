@@ -76,10 +76,10 @@ const HomeScreen = () => {
         </View>
         <View style={styles.listWrapper} >
             <View style={styles.listTitleContainer}>
-                <Text>
+                <Text style={styles.listTitle}>
                     Completed Tasks
                 </Text>
-                <Text>
+                <Text style={styles.viewAllTitle}>
                     View All
                 </Text>
             </View>

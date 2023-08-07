@@ -30,6 +30,15 @@ const styles = StyleSheet.create({
         paddingHorizontal: wp(10),
         paddingVertical: hp(2)
     },
+    listTitle : {
+        color : 'black',
+        fontSize : wp(5),
+        fontWeight : 'bold',
+    },
+    viewAllTitle : {
+        fontSize : wp(4),
+        color : 'black'
+    },
     listContainer: {
         flex: 1,
         paddingVertical: hp(3)
