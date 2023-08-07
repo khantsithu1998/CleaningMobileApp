@@ -17,17 +17,21 @@ const styles = StyleSheet.create({
         paddingHorizontal: wp(10), 
         paddingVertical: hp(3), 
         backgroundColor: "#fff",
-        borderRadius:wp(5)
+        borderBottomLeftRadius : wp(5),
+        borderBottomRightRadius : wp(5)
      },
     title : {
         fontSize : wp(8)
     },
     listContainer : {
         flex : 1,
+        paddingVertical : hp(2),
         backgroundColor : palette.primary
     },
     item : {
+        backgroundColor : "#fff",
         flexDirection : 'row',
+        paddingHorizontal : wp(10),
         marginHorizontal : wp(5),
         marginBottom : hp(2),
         borderRadius : 10,
