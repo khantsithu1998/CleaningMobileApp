@@ -12,6 +12,7 @@ import { palette } from "utils/theme/colors";
 import Cleaning from "assets/icons/Cleaning";
 import { TaskData } from "types/taskType";
 import { useTasks } from "hooks/useTasks";
+import VirtualizedBackgroundContainer from "components/home/VirtualizedBackgroundContainer";
 
 const TasksScreen = () => {
     const [selectedDate, setSelectedDate] = useState(null);
@@ -66,7 +67,7 @@ const TasksScreen = () => {
         </View>
     );
 
-    return <ScrollView style={styles.wrapper}>
+    return <VirtualizedBackgroundContainer style={styles.wrapper}>
         <StatusBar backgroundColor={"#232323"} />
         <HeaderBar name={"Khant Si Thu"} />
         <View style={styles.cardContainer}>
@@ -76,7 +77,7 @@ const TasksScreen = () => {
         <View style={styles.listContainer}>
             {tasksList}
         </View>
-    </ScrollView>
+    </VirtualizedBackgroundContainer>
 }
 
 export default TasksScreen
