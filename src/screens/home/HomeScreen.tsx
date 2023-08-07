@@ -17,9 +17,9 @@ import { palette } from "utils/theme/colors";
 
 const HomeScreen = () => {
 
-    const { data: response, isInitialLoading, isError, hasNextPage, fetchNextPage } = useCompletedTasks({ date : null });
+    const { data: response, isInitialLoading, isError, hasNextPage, fetchNextPage } = useCompletedTasks({ date: null });
 
-    const taskListData : TaskData[] = response && response.pages && response.pages.length > 0 ? response.pages.flatMap((page) => page.data ? page.data : []) : [];
+    const taskListData: TaskData[] = response && response.pages && response.pages.length > 0 ? response.pages.flatMap((page) => page.data ? page.data : []) : [];
 
     const loadMore = () => {
         if (hasNextPage) {
@@ -42,7 +42,7 @@ const HomeScreen = () => {
             return (
                 <FlatList
                     data={taskListData}
-                    renderItem={({ item }) => <Item title={item.category.name} subtitle={item.location} />}
+                    renderItem={({ item }) => <Item title={item.category.name} subtitle={item.location} isCompleted={item.isCompleted} />}
                     keyExtractor={item => item.id.toString()}
                     onEndReached={loadMore}
                 />
@@ -51,14 +51,16 @@ const HomeScreen = () => {
     }, [[isError, taskListData, isInitialLoading]]);
 
 
-    const Item = ({ title, subtitle }: { title: string, subtitle: string }) => (
+    const Item = ({ title, subtitle, isCompleted }: { title: string, subtitle: string, isCompleted: boolean }) => (
         <View style={styles.item}>
-            <Cleaning height={hp(20)} width={wp(30)} />
+            <Cleaning height={hp(15)} width={wp(20)} />
             <View style={styles.itemTitleContainer}>
                 <Text style={styles.itemTitle}>{title}</Text>
                 <Text style={styles.itemSubtitle}>{subtitle}</Text>
             </View>
-
+            {isCompleted ? <View style={styles.completeContainer}>
+                <Text style={styles.completeText}>Completed</Text>
+            </View> : <></>}
         </View>
     );
 
