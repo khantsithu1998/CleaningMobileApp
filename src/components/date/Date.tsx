@@ -3,7 +3,7 @@ import moment from 'moment'
 import styles from './Style'
 import { palette } from 'utils/theme/colors'
 
-const Date = ({ date, onSelectDate, selected } : any) => {
+const CalendarDate = ({ date, onSelectDate, selected} : any) => {
   /**
    * use moment to compare the date to today
    * if today, show 'Today'
@@ -41,4 +41,4 @@ const Date = ({ date, onSelectDate, selected } : any) => {
   )
 }
 
-export default Date
+export default CalendarDate

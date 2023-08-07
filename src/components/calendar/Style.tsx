@@ -12,8 +12,13 @@ const styles = StyleSheet.create({
       justifyContent : 'space-between'
     },
     title: {
-      fontSize: 20,
+      color : 'black',
+      fontSize : wp(6),
       fontWeight: 'bold',
+    },
+    dateTitle : {
+      color : 'black',
+      fontSize : wp(4),
     },
     dateSection: {
       width: wp(80),

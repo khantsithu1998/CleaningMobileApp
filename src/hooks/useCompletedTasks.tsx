@@ -7,14 +7,14 @@ import apiUrl from 'utils/api/apiUrl';
 
 
 export const useCompletedTasks = (
-    { startDate, endDate }: { startDate: string | null, endDate: string | null }
+    { date }: { date: string | null}
 ) => {
 
     const fetchTasks = async ({ pageParam = 1 }): Promise<TaskType> => {
         let query = `${pageParam}`
 
-        if (startDate && endDate) {
-            query += `&startDate=${startDate}&endDate=${endDate}`;
+        if (date) {
+            query += `&perPage=10&date=${date}`;
         }
 
         console.log(query)

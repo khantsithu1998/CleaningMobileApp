@@ -10,6 +10,7 @@ import { palette } from 'utils/theme/colors';
 
 const styles = StyleSheet.create({
     wrapper: {
+        flex : 1,
         backgroundColor: palette.primary,
     },
     cardContainer: { 
@@ -17,10 +18,12 @@ const styles = StyleSheet.create({
         paddingVertical: hp(3), 
         backgroundColor: "#fff",
         borderBottomLeftRadius : wp(5),
-        borderBottomRightRadius : wp(5)
+        borderBottomRightRadius : wp(5),
      },
     title : {
-        fontSize : wp(8)
+        fontSize : wp(8),
+        fontWeight : 'bold',
+        color : 'black'
     },
     listContainer : {
         flex : 1,
@@ -47,9 +50,27 @@ const styles = StyleSheet.create({
     },
     itemTitle : {
         color : 'black',
+        fontWeight : 'bold',
+        fontSize : wp(4.5),
         marginBottom : hp(3)
     },
-    itemSubtitle : {}
+    itemSubtitle : {
+        color : 'black',
+    },
+    timeContainer : {
+        borderRadius : wp(3),
+        height : hp(5),
+        marginTop : hp(17),
+        marginLeft : wp(72),
+        position : 'absolute',
+        width : wp(20),
+        backgroundColor : 'black',
+        justifyContent : 'center',
+        alignItems : 'center'
+    },
+    timeText : {
+        color : 'white'
+    }
 });
 
 export default styles;

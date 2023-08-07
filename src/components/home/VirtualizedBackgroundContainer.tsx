@@ -4,6 +4,7 @@ import { FlatList } from 'react-native';
  const VirtualizedBackgroundContainer = (props : any) => {
   return (
     <FlatList
+    style={props.style}
       showsVerticalScrollIndicator={false}
       data={[]}
       ListEmptyComponent={null}

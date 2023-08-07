@@ -11,16 +11,15 @@ import Cleaning from "assets/icons/Cleaning";
 import TotalCard from "components/home/TotalCard";
 import HeaderBar from "components/header/HeaderBar";
 import { useCompletedTasks } from "hooks/useCompletedTasks";
-import { useEffect, useMemo, useState } from "react";
-import { TaskData, TaskType } from "types/taskType";
+import { useEffect, useMemo } from "react";
+import { TaskData } from "types/taskType";
 import { palette } from "utils/theme/colors";
-import { NetInfoCellularGeneration } from "@react-native-community/netinfo";
 
 const HomeScreen = () => {
 
-    const { data: response, isInitialLoading, isError, hasNextPage, fetchNextPage } = useCompletedTasks({ startDate: null, endDate: null });
+    const { data: response, isInitialLoading, isError, hasNextPage, fetchNextPage } = useCompletedTasks({ date : null });
 
-    const taskListData = response && response.pages && response.pages.length > 0 ? response.pages.flatMap((page) => page.data ? page.data : []) : [];
+    const taskListData : TaskData[] = response && response.pages && response.pages.length > 0 ? response.pages.flatMap((page) => page.data ? page.data : []) : [];
 
     const loadMore = () => {
         if (hasNextPage) {

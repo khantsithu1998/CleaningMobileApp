@@ -7,23 +7,25 @@ import apiUrl from 'utils/api/apiUrl';
 
 
 export const useTasks = (
-    { startDate, endDate }: { startDate: string | null, endDate: string | null }
+    { date }: { date: string | null }
 ) => {
 
     const fetchTasks = async ({ pageParam = 1 }): Promise<TaskType> => {
         let query = pageParam.toString()
 
-        if (startDate && endDate) {
-            query += `&startDate=${startDate}&endDate=${endDate}`;
+        if (date) {
+            query += `&perPage=10&date=${date}`;
         }
+
+        console.log("endpoint : ", apiUrl.tasks, query)
         const response = await getData(
-            { route: apiUrl.tasks, query : query }
+            { route: apiUrl.tasks, query: query }
         );
         return response;
     };
 
     return useInfiniteQuery({
-        queryKey: ['completed-tasks'],
+        queryKey: ['tasks'],
         queryFn: fetchTasks,
         staleTime: 0,
         enabled: true,
