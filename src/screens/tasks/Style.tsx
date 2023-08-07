@@ -11,7 +11,6 @@ import { palette } from 'utils/theme/colors';
 const styles = StyleSheet.create({
     wrapper: {
         backgroundColor: palette.primary,
-        height: hp(150)
     },
     cardContainer: { 
         paddingHorizontal: wp(10), 

@@ -40,7 +40,7 @@ const TasksScreen = () => {
             return <Text>{'Something went wrong'}</Text>;
         }
 
-        if (isInitialLoading) return <ActivityIndicator color={palette.primary} size={'large'} />;
+        if (isInitialLoading) return <ActivityIndicator color={"#fff"} size={'large'} />;
 
         if (tasksData?.length) {
             return (
