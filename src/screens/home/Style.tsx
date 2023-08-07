@@ -11,11 +11,11 @@ import { palette } from 'utils/theme/colors';
 const styles = StyleSheet.create({
     wrapper: {
         backgroundColor: "#232323",
-        height: hp(150)
+        flex : 1,
     },
     header: {
         backgroundColor: "#232323",
-        height: hp(40)
+        height: hp(30)
     },
     listWrapper: {
         height: hp(60),

@@ -93,9 +93,10 @@ const TasksScreen = () => {
         )
     };
 
-    return <VirtualizedBackgroundContainer style={styles.wrapper}>
+    return <View style={{ flex : 1}}>
         <StatusBar backgroundColor={"#232323"} />
         <HeaderBar name={"Khant Si Thu"} />
+        <VirtualizedBackgroundContainer style={styles.wrapper}>
         <View style={styles.cardContainer}>
             <Text style={styles.title}>My Tasks</Text>
             <Calendar onSelectDate={setSelectedDate} selected={selectedDate} dates={dates} />
@@ -104,6 +105,7 @@ const TasksScreen = () => {
             {tasksList}
         </View>
     </VirtualizedBackgroundContainer>
+    </View>
 }
 
 export default TasksScreen

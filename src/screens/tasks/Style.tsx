@@ -35,14 +35,10 @@ const styles = StyleSheet.create({
         flexDirection : 'row',
         paddingHorizontal : wp(10),
         marginHorizontal : wp(5),
-        marginBottom : hp(2),
+        marginBottom : hp(5),
         borderRadius : 10,
         borderColor : '#fff',
         elevation : 1,
-        // shadowOffset : {
-        //     width : 1,
-        //     height : 1
-        // }
     },
     itemTitleContainer : {
         paddingVertical : hp(5),

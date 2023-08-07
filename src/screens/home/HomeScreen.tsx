@@ -14,9 +14,24 @@ import { useCompletedTasks } from "hooks/useCompletedTasks";
 import { useEffect, useMemo } from "react";
 import { TaskData } from "types/taskType";
 import { palette } from "utils/theme/colors";
+import VirtualizedBackgroundContainer from "components/home/VirtualizedBackgroundContainer";
+import { useTasksCountCompletedByWeek } from "hooks/useTasksCompletedPerWeek";
+import moment from "moment";
+import { useTasksDurationPerWeek } from "hooks/useTasksDurationPerWeek";
 
 const HomeScreen = () => {
+    const getStartOfWeek = (date: Date) => {
+        const day = date.getDay();
+        const diff = date.getDate() - day + (day === 0 ? -6 : 1); // Adjust for Sunday
 
+        return new Date(date.setDate(diff));
+    }
+
+    const currentDate = new Date(); // Or any other date you want
+    const weekStartDate = getStartOfWeek(currentDate);
+
+    const { data: tasksCountCompletedByWeekResponse } = useTasksCountCompletedByWeek({ weekStartDate: moment(weekStartDate).format('YYYY-MM-DD') });
+    const { data: tasksDuartionCompletedPerWeekResponse } = useTasksDurationPerWeek({ weekStartDate: moment(weekStartDate).format('YYYY-MM-DD') });
     const { data: response, isInitialLoading, isError, hasNextPage, fetchNextPage } = useCompletedTasks({ date: null });
 
     const taskListData: TaskData[] = response && response.pages && response.pages.length > 0 ? response.pages.flatMap((page) => page.data ? page.data : []) : [];
@@ -28,8 +43,8 @@ const HomeScreen = () => {
     };
 
     useEffect(() => {
-        console.log(taskListData)
-    }, [taskListData])
+        console.log(tasksDuartionCompletedPerWeekResponse)
+    }, [tasksDuartionCompletedPerWeekResponse])
 
     const tasksList = useMemo(() => {
         if (isError) {
@@ -64,31 +79,32 @@ const HomeScreen = () => {
         </View>
     );
 
-    return <SafeAreaView style={styles.wrapper}>
+    return <View style={styles.wrapper}>
         <StatusBar backgroundColor={"#232323"} />
-        <View style={styles.header}>
+        <HeaderBar name={"Khant Si Thu"} />
+        <VirtualizedBackgroundContainer>
+            <View style={styles.header}>
 
-            <HeaderBar name={"Khant Si Thu"} />
+                <TotalCard title="Tasks Completed per Week" totalCount={tasksCountCompletedByWeekResponse?.completedTasksCount?.toString() ?? "0"} />
 
-            <TotalCard title="Tasks Completed per Week" totalCount={"34"} />
-
-            <TotalCard title="Tasks Duration per Week" totalCount={"46 hours"} />
-        </View>
-        <View style={styles.listWrapper} >
-            <View style={styles.listTitleContainer}>
-                <Text style={styles.listTitle}>
-                    Completed Tasks
-                </Text>
-                <Text style={styles.viewAllTitle}>
-                    View All
-                </Text>
+                <TotalCard title="Tasks Duration per Week" totalCount={`${tasksDuartionCompletedPerWeekResponse?.totalDurationInHours?.toString()} Hours` ?? "0 Hour"} />
             </View>
-            <View style={styles.listContainer}>
+            <View style={styles.listWrapper} >
+                <View style={styles.listTitleContainer}>
+                    <Text style={styles.listTitle}>
+                        Completed Tasks
+                    </Text>
+                    <Text style={styles.viewAllTitle}>
+                        View All
+                    </Text>
+                </View>
+                <View style={styles.listContainer}>
 
-                {tasksList}
+                    {tasksList}
+                </View>
             </View>
-        </View>
-    </SafeAreaView>
+        </VirtualizedBackgroundContainer>
+    </View>
 }
 
 
