@@ -6,7 +6,8 @@ interface FetchPostOptions {
   signal?: AbortSignal;
 }
 
-const UAT_API_URL = "https://cf40-2a09-bac5-492c-137d-00-1f1-1a6.ngrok-free.app";
+// you can test with ngrok url you setup // https://cf40-2a09-bac5-492c-137d-00-1f1-1a6.ngrok-free.app 
+const UAT_API_URL = "http://localhost:3000"; 
 const PRODUCTION_API_URL = "";
 
 export const isProduction = false;
