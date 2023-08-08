@@ -2,7 +2,7 @@ This is a new [**React Native**](https://reactnative.dev) project, bootstrapped 
 
 # Demo Video 
 
-https://github.com/khantsithu1998/CleaningMobileApp/assets/25413000/1d53e4e0-c1ed-48a8-b36c-687f1e1ee417
+https://github.com/khantsithu1998/CleaningMobileApp/assets/25413000/ca469540-e087-4034-925b-3a5ce3ee0381
 
 
 # Getting Started
