@@ -14,8 +14,9 @@ import { TaskData } from "types/taskType";
 import { useTasks } from "hooks/useTasks";
 import VirtualizedBackgroundContainer from "components/home/VirtualizedBackgroundContainer";
 import moment from "moment";
+import { TouchableOpacity } from "react-native-gesture-handler";
 
-const TasksScreen = () => {
+const TasksScreen = ({ route, navigation }: any) => {
     const [dates, setDates] = useState<any[]>([])
     const date = new Date();
     const [selectedDate, setSelectedDate] = useState(moment(date).format('YYYY-MM-DD'));
@@ -62,7 +63,7 @@ const TasksScreen = () => {
             return (
                 <FlatList
                     data={taskListData}
-                    renderItem={({ item }) => <Item title={item.category.name} subtitle={item.location} time={item.startTime} />}
+                    renderItem={({ item }) => <Item item={item} />}
                     keyExtractor={item => item.id.toString()}
                     onEndReached={loadMore}
                     contentContainerStyle={{ paddingBottom: hp(2) }}
@@ -73,38 +74,40 @@ const TasksScreen = () => {
 
     }, [isError, isInitialLoading, taskListData]);
 
-    const Item = ({ title, subtitle, time }: { title: string, subtitle: string, time: string }) => {
-        const date = new Date(time);
+    const Item = ({ item }: { item: TaskData }) => {
+        const date = new Date(item.startTime);
 
         const options: Intl.DateTimeFormatOptions = { hour: 'numeric', minute: 'numeric', hour12: true };
         const formattedTime = date.toLocaleString('en-US', options);
 
         return (
-            <View style={styles.item}>
-                <Cleaning height={hp(20)} width={wp(30)} />
-                <View style={styles.itemTitleContainer}>
-                    <Text style={styles.itemTitle}>{title}</Text>
-                    <Text style={styles.itemSubtitle}>{subtitle}</Text>
+            <TouchableOpacity onPress={() => navigation.navigate('TaskDetails', { item: item })}>
+                <View style={styles.item}>
+                    <Cleaning height={hp(20)} width={wp(30)} />
+                    <View style={styles.itemTitleContainer}>
+                        <Text style={styles.itemTitle}>{item.category.name}</Text>
+                        <Text style={styles.itemSubtitle}>{item.location}</Text>
+                    </View>
+                    <View style={styles.timeContainer}>
+                        <Text style={styles.timeText}>{formattedTime}</Text>
+                    </View>
                 </View>
-                <View style={styles.timeContainer}>
-                    <Text style={styles.timeText}>{formattedTime}</Text>
-                </View>
-            </View>
+            </TouchableOpacity>
         )
     };
 
-    return <View style={{ flex : 1}}>
+    return <View style={{ flex: 1 }}>
         <StatusBar backgroundColor={"#232323"} />
         <HeaderBar name={"Khant Si Thu"} />
         <VirtualizedBackgroundContainer style={styles.wrapper}>
-        <View style={styles.cardContainer}>
-            <Text style={styles.title}>My Tasks</Text>
-            <Calendar onSelectDate={setSelectedDate} selected={selectedDate} dates={dates} />
-        </View>
-        <View style={styles.listContainer}>
-            {tasksList}
-        </View>
-    </VirtualizedBackgroundContainer>
+            <View style={styles.cardContainer}>
+                <Text style={styles.title}>My Tasks</Text>
+                <Calendar onSelectDate={setSelectedDate} selected={selectedDate} dates={dates} />
+            </View>
+            <View style={styles.listContainer}>
+                {tasksList}
+            </View>
+        </VirtualizedBackgroundContainer>
     </View>
 }
 

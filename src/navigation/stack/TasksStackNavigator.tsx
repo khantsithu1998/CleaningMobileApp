@@ -12,7 +12,7 @@ import {
 import { palette } from 'utils/theme/colors';
 import HomeScreen from 'src/screens/home/HomeScreen';
 import TasksScreen from 'src/screens/tasks/TasksScreen';
-
+import TaskDetailsScreen from 'src/screens/taskDetails/TaskDetailScreen';
 
 const Stack = createStackNavigator();
 
@@ -56,6 +56,11 @@ const TasksStackNavigator = () => {
       <Stack.Screen
         name="Tasks"
         component={TasksScreen}
+        options={{ headerShown: false }}
+      />
+      <Stack.Screen
+        name="TaskDetails"
+        component={TaskDetailsScreen}
         options={{ headerShown: false }}
       />
       
